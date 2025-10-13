@@ -1,4 +1,6 @@
 'use client';
+// EARLY beacon: fire ASAP so parent can detect even if React/useEffect fails
+try { window.parent?.postMessage({ type:'PIM_EXT_EARLY', ts: Date.now() }, '*'); } catch(_) {}
 import PIMBrowser from '../../components/PIMBrowser';
 import { useContentstackField } from '../../lib/useContentstackField';
 import { useEffect, useState } from 'react';
