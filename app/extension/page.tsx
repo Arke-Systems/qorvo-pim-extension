@@ -9,6 +9,17 @@ export default function ExtensionPage(){
   const [initialValue, setInitialValue] = useState<ProductSummary | ProductSummary[] | null>(null);
   const [config, setConfig] = useState<any>({});
 
+  // Execution probe: parent frame can postMessage {type:'PIM_EXT_PING'} and we reply with PIM_EXT_PONG
+  useEffect(()=>{
+    const handler = (e: MessageEvent) => {
+      if(e.data && e.data.type === 'PIM_EXT_PING') {
+        window.parent?.postMessage({ type: 'PIM_EXT_PONG', ts: Date.now() }, '*');
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  },[]);
+
   useEffect(() => {
     if(!ready || !sdk) return;
     setInitialValue(sdk.field.getData() ?? null);
