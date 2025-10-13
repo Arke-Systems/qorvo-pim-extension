@@ -22,7 +22,14 @@ export function useContentstackField(){
     (async () => {
       try {
         const mod: any = await import('@contentstack/ui-extensions-sdk');
-        const init: InitFn = (mod.init || mod.default || mod) as InitFn;
+        let init: any = null;
+        if (typeof mod.init === 'function') init = mod.init;
+        else if (mod.default && typeof mod.default.init === 'function') init = mod.default.init;
+        else if (typeof mod === 'function') init = mod; // fallback (older pattern)
+        if (!init) {
+          console.error('[PIM EXT] Contentstack SDK init function not found. Module keys:', Object.keys(mod));
+          return;
+        }
         const s = await init();
         if(disposed) return;
         setSdk(s); setReady(true);
@@ -31,7 +38,13 @@ export function useContentstackField(){
           const cfgMin = cfg.minHeight;
           const envMin = typeof process !== 'undefined' ? Number(process.env.NEXT_PUBLIC_IFRAME_MIN_HEIGHT) : undefined;
           const value = Number(cfgMin) || envMin || 800;
-          return isFinite(value) ? value : 800;
+          const finalVal = isFinite(value) ? value : 800;
+          // Debug one-time log
+          if (!(window as any).__loggedMinHeight) {
+            (window as any).__loggedMinHeight = true;
+            console.debug('[PIM EXT] minHeight computed:', { cfgMin, envMin, finalVal });
+          }
+          return finalVal;
         };
         const resize = () => {
           const minH = computeMin();
