@@ -71,6 +71,33 @@ export function useContentstackField(){
         },1000);
         // Expose manual trigger for debugging in console: window.__csForceResize__()
         (window as any).__csForceResize__ = () => { applyStructuralMin(); resize(); };
+        // Spacer + escalation to fight host not honoring initial updateHeight
+        const spacerId = '__pimSpacer';
+        let spacer = document.getElementById(spacerId);
+        if(!spacer) {
+          spacer = document.createElement('div');
+          spacer.id = spacerId;
+          spacer.style.cssText = 'width:100%;height:0;pointer-events:none;opacity:0;';
+          document.body.appendChild(spacer);
+        }
+        // Debug overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;bottom:4px;right:4px;background:#1e293b;color:#fff;font:11px/1.2 system-ui;padding:4px 6px;border-radius:4px;z-index:2147483647;opacity:.85';
+        overlay.textContent = 'height:init';
+        document.body.appendChild(overlay);
+        let attempt = 0;
+        const escalate = () => {
+          attempt++;
+          const minH = computeMin();
+          const target = minH + 200; // overshoot
+          spacer!.style.height = target + 'px';
+          const bodyH = document.body.scrollHeight;
+          s.window.updateHeight(Math.max(target, bodyH));
+          overlay.textContent = `escalate#${attempt} body:${bodyH} target:${target}`;
+          if (attempt < 20) setTimeout(escalate, 300);
+          else overlay.textContent += ' (done)';
+        };
+        setTimeout(escalate, 120); // start escalation after early resizes
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('Failed to initialize Contentstack UI Extension SDK', e);
