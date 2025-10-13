@@ -1,0 +1,49 @@
+# Node / Dependency Artifacts
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+
+# Build output
+.next/
+out/
+dist/
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Env / Secrets
+.env
+.env.*.local
+.env.local
+.env.production.local
+.env.development.local
+
+# Local data / caches
+.cache/
+.vercel/
+.turbo/
+*.swp
+*.swo
+
+# IDE / Editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Logs
+logs/
+*.log
+
+# Misc
+Thumbs.db
+
+# Test & instrumentation
+jest-html-reporters-*/
+
