@@ -10,7 +10,7 @@ import type { ProductSummary } from '../../utils/types';
 const BUILD_TS = new Date().toISOString();
 
 export default function ExtensionPage(){
-  const { sdk, ready } = useContentstackField();
+  const { sdk, ready, error } = useContentstackField();
   const [initialValue, setInitialValue] = useState<ProductSummary | ProductSummary[] | null>(null);
   const [config, setConfig] = useState<any>({});
 
@@ -76,6 +76,12 @@ export default function ExtensionPage(){
   };
 
   const minHeight = Number(config.minHeight) || 800;
+  if(error){
+    return <div style={{fontFamily:'system-ui',padding:16,color:'#b00'}}>
+      <h3>PIM Extension Init Error</h3>
+      <pre style={{whiteSpace:'pre-wrap',fontSize:12}}>{String((error as any)?.stack||error)}</pre>
+    </div>;
+  }
   return (
     <div className="cs-extension" style={{ padding: 16, minHeight }}>
       <h3 style={{ margin: '0 0 12px' }}>Qorvo PIM Browser {multi ? '(Multiple)' : '(Single)'}</h3>

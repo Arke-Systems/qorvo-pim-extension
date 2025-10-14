@@ -16,12 +16,16 @@ type InitFn = () => Promise<CSFieldSDK>;
 export function useContentstackField(){
   const [sdk, setSdk] = useState<CSFieldSDK | null>(null);
   const [ready, setReady] = useState(false);
+  const [error, setError] = useState<unknown>(null);
 
   useEffect(()=>{
     let disposed = false;
     (async () => {
       try {
-        const mod: any = await import('@contentstack/ui-extensions-sdk');
+  const t0 = performance.now();
+  console.log('[PIM HOOK] init start');
+  const mod: any = await import('@contentstack/ui-extensions-sdk').catch(e => { console.error('[PIM HOOK] dynamic import failed', e); throw e; });
+  console.log('[PIM HOOK] module imported', { keys: Object.keys(mod), dt: (performance.now()-t0).toFixed(1)+'ms' });
         let init: any = null;
         if (typeof mod.init === 'function') init = mod.init;
         else if (mod.default && typeof mod.default.init === 'function') init = mod.default.init;
@@ -30,7 +34,15 @@ export function useContentstackField(){
           console.error('[PIM EXT] Contentstack SDK init function not found. Module keys:', Object.keys(mod));
           return;
         }
-        const s = await init();
+        const t1 = performance.now();
+        let s: any;
+        try {
+          s = await init();
+        } catch(e:any){
+          console.error('[PIM HOOK] init() threw', e);
+          throw e;
+        }
+        console.log('[PIM HOOK] init resolved', { dt: (performance.now()-t1).toFixed(1)+'ms', hasField: !!s?.field, hasWindow: !!s?.window });
         if(disposed) return;
         setSdk(s); setReady(true);
         const computeMin = () => {
@@ -99,12 +111,12 @@ export function useContentstackField(){
         };
         setTimeout(escalate, 120); // start escalation after early resizes
       } catch (e) {
-        // eslint-disable-next-line no-console
+        setError(e);
         console.error('Failed to initialize Contentstack UI Extension SDK', e);
       }
     })();
     return () => { disposed = true; };
   },[]);
 
-  return { sdk, ready } as const;
+  return { sdk, ready, error } as const;
 }

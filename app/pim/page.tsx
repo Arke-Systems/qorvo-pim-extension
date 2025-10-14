@@ -24,7 +24,7 @@ class Boundary extends React.Component<{children:any},{err:any}> {
 
 export default function PIMAlt(){
   console.log('[PIM /pim] page module eval', { buildTs: BUILD_TS });
-  const { sdk, ready } = useContentstackField();
+  const { sdk, ready, error } = useContentstackField();
   const [initialValue, setInitialValue] = useState<ProductSummary | ProductSummary[] | null>(null);
   const [config, setConfig] = useState<any>({});
   useEffect(()=>{ (window as any).__PIM_PIM_INFO = { buildTs: BUILD_TS }; },[]);
@@ -50,6 +50,12 @@ export default function PIMAlt(){
     } catch(e){ console.error('[PIM /pim] setData failed', e); }
   };
   const minHeight = Number(config.minHeight)||800;
+  if(error){
+    return <div style={{padding:16,fontFamily:'system-ui',color:'#b00'}}>
+      <h3>/pim Init Error</h3>
+      <pre style={{whiteSpace:'pre-wrap'}}>{String((error as any)?.stack||error)}</pre>
+    </div>;
+  }
   return <Boundary>
     <div style={{padding:16,minHeight}}>
       <h3>/pim Alt Picker {multi?'(Multiple)':'(Single)'} - {BUILD_TS}</h3>
