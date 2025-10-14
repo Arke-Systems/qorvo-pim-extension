@@ -1,41 +1,15 @@
 'use client';
-// EARLY beacon: fire ASAP so parent can detect even if React/useEffect fails
-try { window.parent?.postMessage({ type:'PIM_EXT_EARLY', ts: Date.now() }, '*'); } catch(_) {}
 import PIMBrowser from '../../components/PIMBrowser';
 import { useContentstackField } from '../../lib/useContentstackField';
-import StandaloneFallback from '../../components/StandaloneFallback';
 import { useEffect, useState } from 'react';
 import type { ProductSummary } from '../../utils/types';
 
-// Lightweight build marker (helps confirm latest bundle executed inside Contentstack iframe)
-const BUILD_TS = new Date().toISOString();
-
 export default function ExtensionPage(){
-  const { sdk, ready, error } = useContentstackField();
+  const { sdk, ready } = useContentstackField();
   const [initialValue, setInitialValue] = useState<ProductSummary | ProductSummary[] | null>(null);
   const [config, setConfig] = useState<any>({});
 
-  // Execution probe: parent frame can postMessage {type:'PIM_EXT_PING'} and we reply with PIM_EXT_PONG
-  useEffect(()=>{
-    // Expose build info early (idempotent if hot reloaded locally)
-    (window as any).__PIM_EXT_INFO = { buildTs: BUILD_TS };
-    // eslint-disable-next-line no-console
-    console.log('[PIM EXT] build loaded', (window as any).__PIM_EXT_INFO);
-    // Automatic status beacons so parent can detect execution without manual ping
-    let beaconCount = 0;
-    const beaconTimer = setInterval(()=>{
-      beaconCount++;
-      try { window.parent?.postMessage({ type: 'PIM_EXT_STATUS', buildTs: BUILD_TS, count: beaconCount }, '*'); } catch(_){ /* ignore */ }
-      if (beaconCount >= 10) clearInterval(beaconTimer); // stop after ~10 seconds
-    }, 1000);
-    const handler = (e: MessageEvent) => {
-      if(e.data && e.data.type === 'PIM_EXT_PING') {
-        window.parent?.postMessage({ type: 'PIM_EXT_PONG', ts: Date.now() }, '*');
-      }
-    };
-    window.addEventListener('message', handler);
-    return () => { window.removeEventListener('message', handler); clearInterval(beaconTimer); };
-  },[]);
+  // (Removed debug beacons and probes)
 
   useEffect(() => {
     if(!ready || !sdk) return;
@@ -77,7 +51,6 @@ export default function ExtensionPage(){
   };
 
   const minHeight = Number(config.minHeight) || 800;
-  if(error){ return <StandaloneFallback error={error} />; }
   return (
     <div className="cs-extension" style={{ padding: 16, minHeight }}>
       <h3 style={{ margin: '0 0 12px' }}>Qorvo PIM Browser {multi ? '(Multiple)' : '(Single)'}</h3>
