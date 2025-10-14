@@ -45,6 +45,11 @@ export async function GET(req: NextRequest) {
   const q = searchParams.get('q') || '';
   const limit = Number(searchParams.get('limit') || '20');
   const page = Number(searchParams.get('page') || '1');
+  const allowOrigin = process.env.PIM_ALLOW_ORIGIN; // Optional specific origin for CORS
+  const corsHeaders: Record<string,string> = allowOrigin ? {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Vary': 'Origin'
+  } : {};
 
   if (MOCK) {
     const terms = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -56,7 +61,7 @@ export async function GET(req: NextRequest) {
     const all = buildMockItems().filter(matches);
     const start = (page-1) * limit;
     const slice = all.slice(start, start+limit);
-    return NextResponse.json({ total: all.length, items: slice });
+    return NextResponse.json({ total: all.length, items: slice }, { headers: corsHeaders });
   }
 
   if (!BASE) return NextResponse.json({ error: 'PIM_API_BASE not configured' }, { status: 500 });
@@ -160,15 +165,15 @@ export async function GET(req: NextRequest) {
     const total = filtered.length;
     const start = (page - 1) * limit;
     const pageItems = filtered.slice(start, start + limit);
-    return NextResponse.json({ total, items: pageItems, cached: true, fetchedAt: catalogCache?.fetchedAt });
+    return NextResponse.json({ total, items: pageItems, cached: true, fetchedAt: catalogCache?.fetchedAt }, { headers: corsHeaders });
   } catch (e: any) {
     // If catalog load fails, surface structured payload when possible
     let message = e?.message || 'Catalog load failure';
     let structured: any = undefined;
     try { structured = JSON.parse(message); } catch {}
     if (structured && structured.error) {
-      return NextResponse.json(structured, { status: 502 });
+      return NextResponse.json(structured, { status: 502, headers: corsHeaders });
     }
-    return NextResponse.json({ error: message }, { status: 502 });
+    return NextResponse.json({ error: message }, { status: 502, headers: corsHeaders });
   }
 }

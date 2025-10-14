@@ -21,6 +21,14 @@ export default function PIMBrowser({ multi=false, displayFields=['category'], de
   const [items,setItems] = useState<ProductSummary[]>([]);
   const [total,setTotal] = useState(0);
   const [selection,setSelection] = useState<ProductSummary | ProductSummary[] | null>(initialValue);
+  // Determine API base explicitly to avoid accidental resolution against host environment (e.g. Contentstack domain)
+  const apiBase = useMemo(() => {
+    if (typeof window === 'undefined') return '';
+    // Allow runtime override via global (could inject via script if needed)
+    const globalBase = (window as any).__PIM_EXTENSION_ORIGIN__;
+    const envBase = process.env.NEXT_PUBLIC_EXTENSION_ORIGIN;
+    return (globalBase || envBase || window.location.origin).replace(/\/$/, '');
+  }, []);
 
   useEffect(()=>{ setSelection(initialValue); },[initialValue]);
 
@@ -28,16 +36,34 @@ export default function PIMBrowser({ multi=false, displayFields=['category'], de
     setLoading(true); setError(null);
     try {
       const params = new URLSearchParams({ q, limit: String(PAGE_SIZE), page: String(page), ...(defaultFilters||{}) });
-      const res = await fetch(`/api/pim/search?${params.toString()}`, { signal });
-      let data: any;
+      const url = `${apiBase}/api/pim/search?${params.toString()}`;
+      const res = await fetch(url, { signal });
+      let text: string | null = null;
+      let json: any = null;
+      const parseJson = async () => {
+        if (json) return json;
+        if (text === null) text = await res.text();
+        try { json = JSON.parse(text); return json; } catch { return null; }
+      };
       if(!res.ok){
-        try { data = await res.json(); } catch { /* ignore */ }
-        const msg = data?.error || `PIM proxy error: ${res.status}`;
+        await parseJson();
+        // Detect HTML response (likely 404 from wrong origin)
+        if (text && /^\s*<!DOCTYPE|\s*<html/i.test(text)) {
+          throw new Error(`Unexpected HTML response (status ${res.status}) - likely wrong origin base (resolved to ${new URL(url).origin}).`);
+        }
+        const msg = json?.error || `PIM proxy error: ${res.status}`;
         throw new Error(msg);
       }
-      data = await res.json();
-      setItems(data.items || []);
-      setTotal(data.total || 0);
+      // Attempt JSON decode; fallback if HTML
+      text = await res.text();
+      try { json = JSON.parse(text); } catch {
+        if (/^\s*<!DOCTYPE|\s*<html/i.test(text)) {
+          throw new Error('Received HTML instead of JSON from API (possible misconfigured origin).');
+        }
+        throw new Error('Malformed JSON response from API');
+      }
+      setItems(json.items || []);
+      setTotal(json.total || 0);
     } catch(e:any){ if(e.name !== 'AbortError') setError(e.message || 'Unknown error'); }
     finally { setLoading(false); }
   };
