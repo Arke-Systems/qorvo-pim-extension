@@ -124,6 +124,25 @@ export function useContentstackField(){
             iframeSandbox: (window.frameElement && window.frameElement.getAttribute('sandbox')) || null,
             windowName: window.name
           };
+          // Fallback height escalation: keep growing container element height so host shows more content.
+          const fallbackMin = Number(process.env.NEXT_PUBLIC_FALLBACK_MIN_HEIGHT) || 1000;
+          const root = document.documentElement; const body = document.body;
+          root.style.minHeight = fallbackMin + 'px';
+          body.style.minHeight = fallbackMin + 'px';
+          let attempt = 0;
+          const grow = () => {
+            if(disposed) return;
+            attempt++;
+            const extra = Math.min(2000, fallbackMin + attempt * 200);
+            body.style.minHeight = extra + 'px';
+            root.style.minHeight = extra + 'px';
+            // Also push a spacer div to increase scrollHeight if needed
+            let spacer = document.getElementById('__pim_fallback_spacer');
+            if(!spacer){ spacer = document.createElement('div'); spacer.id='__pim_fallback_spacer'; spacer.style.cssText='width:100%;height:0;'; body.appendChild(spacer); }
+            spacer.style.height = extra + 'px';
+            if(attempt < 15) setTimeout(grow, 400);
+          };
+          grow();
         } catch(_){}
         console.error('Failed to initialize Contentstack UI Extension SDK', e);
       }
