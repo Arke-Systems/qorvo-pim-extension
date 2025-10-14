@@ -3,6 +3,7 @@
 try { window.parent?.postMessage({ type:'PIM_PIM_EARLY', ts: Date.now() }, '*'); } catch(_) {}
 import PIMBrowser from '../../components/PIMBrowser';
 import { useContentstackField } from '../../lib/useContentstackField';
+import StandaloneFallback from '../../components/StandaloneFallback';
 import { useEffect, useState } from 'react';
 import type { ProductSummary } from '../../utils/types';
 
@@ -50,12 +51,7 @@ export default function PIMAlt(){
     } catch(e){ console.error('[PIM /pim] setData failed', e); }
   };
   const minHeight = Number(config.minHeight)||800;
-  if(error){
-    return <div style={{padding:16,fontFamily:'system-ui',color:'#b00'}}>
-      <h3>/pim Init Error</h3>
-      <pre style={{whiteSpace:'pre-wrap'}}>{String((error as any)?.stack||error)}</pre>
-    </div>;
-  }
+  if(error){ return <StandaloneFallback error={error} />; }
   return <Boundary>
     <div style={{padding:16,minHeight}}>
       <h3>/pim Alt Picker {multi?'(Multiple)':'(Single)'} - {BUILD_TS}</h3>

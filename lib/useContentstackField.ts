@@ -112,6 +112,19 @@ export function useContentstackField(){
         setTimeout(escalate, 120); // start escalation after early resizes
       } catch (e) {
         setError(e);
+        try {
+          (window as any).__PIM_ENV_DIAG = {
+            at: new Date().toISOString(),
+            error: String(e),
+            stack: (e as any)?.stack,
+            location: window.location.href,
+            referrer: document.referrer,
+            parentOrigin: window.parent === window ? null : document.referrer?.split('/').slice(0,3).join('/') || 'unknown',
+            userAgent: navigator.userAgent,
+            iframeSandbox: (window.frameElement && window.frameElement.getAttribute('sandbox')) || null,
+            windowName: window.name
+          };
+        } catch(_){}
         console.error('Failed to initialize Contentstack UI Extension SDK', e);
       }
     })();
