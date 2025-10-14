@@ -6,6 +6,9 @@ const BASIC_USER = process.env.PIM_BASIC_USER;
 const BASIC_PASS = process.env.PIM_BASIC_PASS;
 const MOCK = process.env.PIM_MOCK === '1';
 const DEBUG = process.env.PIM_DEBUG === '1';
+// If enabled, when real PIM mode is active and the upstream network request itself fails (not just a non-2xx response),
+// we will fall back to serving mock data so the UI remains usable. This never triggers for upstream HTTP error codes.
+const FALLBACK_TO_MOCK = process.env.PIM_FALLBACK_TO_MOCK === '1';
 // Allow either a relative path (preferred, without leading slash) or a full URL override.
 // Leading slashes would reset the path part when combined with a base that itself includes a path (e.g. .../ProductService.svc/), causing 404s.
 const RAW_PRODUCTS_PATH = process.env.PIM_PRODUCTS_PATH || 'GetProductCatalogForSitecore';
@@ -82,7 +85,32 @@ export async function GET(req: NextRequest) {
       const headers: Record<string, string> = { 'Accept': 'application/json' };
       if (KEY) headers['Authorization'] = `Bearer ${KEY}`;
       if (BASIC_USER && BASIC_PASS) headers['Authorization'] = 'Basic ' + Buffer.from(`${BASIC_USER}:${BASIC_PASS}`).toString('base64');
-      const res = await fetch(pimUrl.toString(), { headers, cache: 'no-store' });
+      let res: Response;
+      try {
+        res = await fetch(pimUrl.toString(), { headers, cache: 'no-store' });
+      } catch (netErr: any) {
+        // Network-level failure (DNS, ECONNREFUSED, timeout, etc.)
+        if (FALLBACK_TO_MOCK) {
+          if (DEBUG) {
+            console.error('[PIM] Network error contacting upstream, using mock fallback', {
+              message: netErr?.message,
+              code: netErr?.code,
+              errno: netErr?.errno,
+              syscall: netErr?.syscall,
+              address: netErr?.address,
+              target: pimUrl.toString()
+            });
+          }
+          // Build & cache mock so subsequent queries reuse it (simulate catalog fetch)
+          const mockItems = buildMockItems();
+          catalogCache = { fetchedAt: Date.now(), items: mockItems };
+          return mockItems;
+        }
+        const errPayload: any = { error: 'Upstream network failure', message: netErr?.message || String(netErr) };
+        ['code','errno','syscall','address'].forEach(k => { if (netErr && netErr[k]) errPayload[k] = netErr[k]; });
+        if (DEBUG) errPayload.target = pimUrl.toString();
+        throw new Error(JSON.stringify(errPayload));
+      }
       if (!res.ok) {
         const text = await res.text();
         const errPayload: any = { error: `Upstream PIM error ${res.status}`, details: text };
