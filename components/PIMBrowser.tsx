@@ -106,13 +106,12 @@ export default function PIMBrowser({ multi=false, displayFields=['category'], de
         {items.map(p=> {
           const desc = (p.description || '').slice(0,80) + ((p.description||'').length>80 ? '…' : '');
           return (
-            <div key={p.id} onClick={()=>toggleSelect(p)} style={{ display:'flex', gap:10, alignItems:'center', padding:10, border: isSelected(p.id)?'2px solid #2563eb':'1px solid #e5e7eb', borderRadius:8, cursor:'pointer', background: isSelected(p.id)?'#eff6ff':'white' }} title={p.name}>
-              <img src={p.thumbnailUrl || '/icon.png'} alt={p.name} width={40} height={40} style={{ objectFit:'cover', borderRadius:6 }} />
+            <div key={p.id} onClick={()=>toggleSelect(p)} style={{ display:'flex', gap:10, alignItems:'center', padding:10, border: isSelected(p.id)?'2px solid #2563eb':'1px solid #e5e7eb', borderRadius:8, cursor:'pointer', background: isSelected(p.id)?'#eff6ff':'white' }} title={p.description}>
+              <img src={p.thumbnailUrl || '/icon.png'} alt={p.partNumber || p.uuid} width={40} height={40} style={{ objectFit:'cover', borderRadius:6 }} />
               <div style={{ display:'flex', flexDirection:'column', lineHeight:1.2 }}>
-                <strong>{p.name}</strong>
-                <small>SKU: {p.sku}</small>
+                <strong>{desc}</strong>
+                <small>{p.partNumber || p.uuid}</small>
                 {p.category && <small style={{ opacity:0.8 }}>{p.category}</small>}
-                {desc && <small style={{ opacity:0.6 }}>{desc}</small>}
               </div>
             </div>
           );

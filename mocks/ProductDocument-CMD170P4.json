@@ -1,0 +1,387 @@
+{
+  "Status": "OK",
+  "Product": {
+    "UUID": "pa003305",
+    "PartNumber": "CMD170P4",
+    "Description": "7.5 - 9 GHz (C, X Band) Driver Amplifier MMIC",
+    "ProductType": {
+      "UUID": "ta0031",
+      "Name": "Driver Amplifiers"
+    },
+    "ProductStatus": "Production",
+    "DatasheetUrl": "/products/d/da007380",
+    "DatasheetIndex": 1,
+    "RFMWStoreUrl": "https://store.qorvo.com/ProductDetail/CMD170P4-Qorvo/676566/",
+    "SampleRequestUrl": "http://samples.qorvo.com/",
+    "LastUpdated": 1631116470985,
+    "IsNew": 2,
+    "Overview": "<p>Qorvo's CMD170P4 is an RF / Microwave GaAs MMIC driver amplifier housed in a leadless 4x4 mm plastic surface mount (SMT) package. The CMD170P4 is ideally suited for complex communications systems where small size and high linearity are indispensable design requirements. At 8 GHz the device delivers 30 dB of gain with a corresponding output 1 dB compression point of greater than +28 dBm. The CMD170P4 amplifier is a 50 ohm matched design which eliminates the need for external DC blocks and RF port matching. The CMD170P4 is also equipped with an on-chip detector for applications where power leveling is required.</p>",
+    "KeyFeatures": "<ul>\r\n\t<li>All positive bias</li>\r\n\t<li>High output power</li>\r\n\t<li>On-chip detector</li>\r\n\t<li>Pb-free RoHS compliant 4x4 QFN package</li>\r\n\t<li>Positive bias</li>\r\n</ul>",
+    "TypicalApplications": "<ul>\r\n\t<li>Radar</li>\r\n\t<li>Space</li>\r\n\t<li>Satellite Communications (Satcom)</li>\r\n</ul>",
+    "ProductAttributes": [
+      {
+        "Attribute": {
+          "Name": "Frequency Min",
+          "UnitOfMeasure": "MHz",
+          "TypeSpecific": 1
+        },
+        "Value": "7,500"
+      },
+      {
+        "Attribute": {
+          "Name": "Frequency Max",
+          "UnitOfMeasure": "MHz",
+          "TypeSpecific": 1
+        },
+        "Value": "9,000"
+      },
+      {
+        "Attribute": {
+          "Name": "Gain",
+          "UnitOfMeasure": "dB",
+          "TypeSpecific": 1
+        },
+        "Value": "30"
+      },
+      {
+        "Attribute": {
+          "Name": "OP1dB",
+          "UnitOfMeasure": "dBm",
+          "TypeSpecific": 1
+        },
+        "Value": "28.3"
+      },
+      {
+        "Attribute": {
+          "Name": "OIP3",
+          "UnitOfMeasure": "dBm",
+          "TypeSpecific": 1
+        },
+        "Value": "34"
+      },
+      {
+        "Attribute": {
+          "Name": "NF",
+          "UnitOfMeasure": "dB",
+          "TypeSpecific": 1
+        },
+        "Value": "6.5"
+      },
+      {
+        "Attribute": {
+          "Name": "Voltage",
+          "UnitOfMeasure": "V",
+          "TypeSpecific": 1
+        },
+        "Value": "7"
+      },
+      {
+        "Attribute": {
+          "Name": "Current",
+          "UnitOfMeasure": "mA",
+          "TypeSpecific": 1
+        },
+        "Value": "365"
+      },
+      {
+        "Attribute": {
+          "Name": "Package Type",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 1
+        },
+        "Value": "Plastic QFN"
+      },
+      {
+        "Attribute": {
+          "Name": "Package",
+          "UnitOfMeasure": "mm",
+          "TypeSpecific": 1
+        },
+        "Value": "4.0 x 4.0"
+      },
+      {
+        "Attribute": {
+          "Name": "RoHS",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "Yes"
+      },
+      {
+        "Attribute": {
+          "Name": "Lead Free",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "Yes"
+      },
+      {
+        "Attribute": {
+          "Name": "Halogen Free",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": ""
+      },
+      {
+        "Attribute": {
+          "Name": "ITAR Restricted",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "No"
+      },
+      {
+        "Attribute": {
+          "Name": "ECCN",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "EAR99"
+      }
+    ],
+    "ProductDocuments": [
+      {
+        "UUID": "da007380",
+        "TitleCombined": "Product Data Sheet",
+        "FileType": 1,
+        "DocumentType": "Data Sheet",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "Revision": "B",
+        "Date": "06/20/2022",
+        "RevisionAndDate": "Rev B – 06/20/2022",
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "Data Sheets",
+        "LegalAgreementVer": -1,
+        "Version": 3
+      },
+      {
+        "UUID": "da007336",
+        "TitleCombined": "CMDS Application Note 101 - Carrier Tape and Reel Dimensions and Devices Orientation",
+        "FileType": 1,
+        "DocumentType": "Application Note",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "Revision": "A",
+        "Date": "06/2020",
+        "RevisionAndDate": "Rev A – 06/2020",
+        "ImportantNotice": 2,
+        "DocumentTypePlural": "Application Notes",
+        "LegalAgreementVer": -1,
+        "Version": 4
+      },
+      {
+        "UUID": "da007337",
+        "TitleCombined": "CMDS Application Note 102 - Solder Reflow Profiles for Standard and Lead-Free SMT Packages",
+        "FileType": 1,
+        "DocumentType": "Application Note",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "Revision": "A",
+        "Date": "06/2020",
+        "RevisionAndDate": "Rev A – 06/2020",
+        "ImportantNotice": 2,
+        "DocumentTypePlural": "Application Notes",
+        "LegalAgreementVer": -1,
+        "Version": 5
+      },
+      {
+        "UUID": "da007363",
+        "TitleCombined": "CMDS Application Note 103 - Biasing Scheme for Dual Positive Supply Amplifier MMICs",
+        "FileType": 1,
+        "DocumentType": "Application Note",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "Revision": "A",
+        "Date": "06/2020",
+        "RevisionAndDate": "Rev A – 06/2020",
+        "ImportantNotice": 2,
+        "DocumentTypePlural": "Application Notes",
+        "LegalAgreementVer": -1,
+        "Version": 3
+      },
+      {
+        "UUID": "da007345",
+        "TitleCombined": "CMDS Application Note 105 - Recommended Land Patterns for QFN Devices",
+        "FileType": 1,
+        "DocumentType": "Application Note",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "Revision": "A",
+        "Date": "06/2020",
+        "RevisionAndDate": "Rev A – 06/2020",
+        "ImportantNotice": 2,
+        "DocumentTypePlural": "Application Notes",
+        "LegalAgreementVer": -1,
+        "Version": 5
+      },
+      {
+        "UUID": "da007366",
+        "TitleCombined": "Tech Brief - Simplify Amplifier Biasing Using Positive Bias pHEMT MMICs",
+        "FileType": 1,
+        "DocumentType": "Application Note",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "Application Notes",
+        "LegalAgreementVer": -1,
+        "Version": 1
+      },
+      {
+        "UUID": "da007805",
+        "TitleCombined": "X-Microwave Design System",
+        "FileType": 5,
+        "DocumentType": "Evaluation Tool",
+        "IconType": 18,
+        "IconFileName": "icon-other",
+        "ShowOnDetailsPage": 2,
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "Evaluation Tools",
+        "LegalAgreementVer": -1,
+        "Version": 1
+      },
+      {
+        "UUID": "da007377",
+        "TitleCombined": "Package Information - DXF",
+        "FileType": 1,
+        "DocumentType": "Package Information",
+        "IconType": 12,
+        "IconFileName": "icon-autocad-dxf",
+        "ShowOnDetailsPage": 1,
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "Package Information",
+        "LegalAgreementVer": -1,
+        "Version": 1
+      },
+      {
+        "UUID": "da007381",
+        "TitleCombined": "S-Parameters",
+        "FileType": 1,
+        "DocumentType": "S-Parameters",
+        "IconType": 2,
+        "IconFileName": "icon-s_parameters",
+        "ShowOnDetailsPage": 1,
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "S-Parameters",
+        "LegalAgreementVer": -1,
+        "Version": 1
+      }
+    ],
+    "ProductCategories": [
+      {
+        "UUID": "ca0005",
+        "Name": "Driver Amplifiers (< 3 W)",
+        "PathComponents": [
+          {
+            "Name": "Products",
+            "Url": "/products"
+          },
+          {
+            "Name": "Amplifiers",
+            "Url": "/products/amplifiers"
+          },
+          {
+            "Name": "Driver Amplifiers (< 3 W)",
+            "Url": "/products/amplifiers/driver-amplifiers"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0007",
+        "Name": "High Frequency Amplifiers (> 6 GHz)",
+        "PathComponents": [
+          {
+            "Name": "Products",
+            "Url": "/products"
+          },
+          {
+            "Name": "Amplifiers",
+            "Url": "/products/amplifiers"
+          },
+          {
+            "Name": "High Frequency Amplifiers (> 6 GHz)",
+            "Url": "/products/amplifiers/high-frequency-amplifiers"
+          }
+        ]
+      }
+    ],
+    "ApplicationCategories": [
+      {
+        "UUID": "ca0084",
+        "Name": "Communications",
+        "PathComponents": [
+          {
+            "Name": "Applications",
+            "Url": "/applications"
+          },
+          {
+            "Name": "Defense & Aerospace",
+            "Url": "/applications/defense-aerospace"
+          },
+          {
+            "Name": "Communications",
+            "Url": "/applications/defense-aerospace/communications"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0086",
+        "Name": "Radar",
+        "PathComponents": [
+          {
+            "Name": "Applications",
+            "Url": "/applications"
+          },
+          {
+            "Name": "Defense & Aerospace",
+            "Url": "/applications/defense-aerospace"
+          },
+          {
+            "Name": "Radar",
+            "Url": "/applications/defense-aerospace/radar"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0101",
+        "Name": "Satellite Communications",
+        "PathComponents": [
+          {
+            "Name": "Applications",
+            "Url": "/applications"
+          },
+          {
+            "Name": "Network Infrastructure",
+            "Url": "/applications/network-infrastructure"
+          },
+          {
+            "Name": "Satellite Communications",
+            "Url": "/applications/network-infrastructure/satellite-communications"
+          }
+        ]
+      }
+    ],
+    "DistributorInventory": [],
+    "EvaluationTools": [
+      "<h4>X-Microwave Design System</h4>\r\n\r\n<p><img class=\"right\" src=\"/products/i/da007802\" /></p>\r\n\r\n<p>This product is available as an X-Microwave Block (X-MWblock) for evaluation.</p>\r\n\r\n<p>X-MWblocks are RF and microwave \"drop-in\" components that can be used individually for prototyping or in production assemblies. X-MWblocks are easy to test, integrate, align, and configure to 60 GHz and beyond. No messy sweat soldering or silver epoxy processes are required. X-MWblocks are highly characterized with S-parameter models and connect with a patented solder-less interconnect technology.</p>\r\n\r\n<p><a href=\"https://www.xmicrowave.com/product/xm-a4w7-0404d/\" target=\"_blank\">Order the X-Microwave Block for this product</a></p>"
+    ],
+    "ReferenceDesigns": [],
+    "Promos": [
+      {
+        "ImageUuid": "da007795",
+        "HtmlBlob": "<div style=\"padding: 4px 0 4px 10px;\">\r\n\t<p style=\"font-size: 14px;\">Try our Design Tools to help support your latest designs</p>\r\n\t<p style=\"font-size: 13px; margin-top: 6px;\"><a href=\"/design-hub/design-tools\">Go To Design Tools</a></p>\r\n</div>"
+      },
+      {
+        "ImageUuid": "da007799",
+        "HtmlBlob": "<div style=\"padding: 4px 0 4px 10px;\">\r\n\t<p style=\"font-size: 14px;\">X-MWblock<sup>&reg;</sup> drop-in modular components for prototyping &amp; production</p>\r\n\t<p style=\"font-size: 13px; margin-top: 6px;\"><a href=\"https://www.xmicrowave.com/product/xm-a4w7-0404d/\" target=\"_blank\">Available for this product</a></p>\r\n</div>"
+      }
+    ]
+  }
+}

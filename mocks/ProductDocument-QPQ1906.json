@@ -1,0 +1,337 @@
+{
+  "Status": "OK",
+  "Product": {
+    "UUID": "pa002988",
+    "PartNumber": "QPQ1906",
+    "Description": "Wi-Fi / IoT Narrowband Filter",
+    "ProductType": {
+      "UUID": "ta0094",
+      "Name": "Wi-Fi Filters"
+    },
+    "ProductStatus": "Production",
+    "DatasheetUrl": "/products/d/da007259",
+    "LargeProductImageIndex": 2,
+    "DatasheetIndex": 1,
+    "RFMWStoreUrl": "https://store.qorvo.com/ProductDetail/QPQ1906-Qorvo/675293/",
+    "SampleRequestUrl": "http://samples.qorvo.com/",
+    "LastUpdated": 1641529912672,
+    "IsNew": 2,
+    "Overview": "<p>The Qorvo QPQ1906 is a high-performance, high power, Bulk Acoustic Wave (BAW) band-pass filter with extremely steep skirts, simultaneously exhibiting low loss in the Wi-Fi band (Channels 10-11) and high near-in rejection in the 2.4GHz lower frequency channels.</p>\r\n<p>The filter module is specifically designed to enable unique use cases where sub-dividing usable channels within the available Wi-Fi spectrum becomes an advantage. End users will see a capability to deliver Wi-Fi in channels 10 or 11 while providing rejection in lower frequency channels to allow simultaneous use of Wi-Fi, Zigbee®, Thread or Bluetooth® Low Energy channels.</p>\r\n<p>Using common module packaging techniques to achieve the industry standard footprint while negating as many external passive placements to help end users ease of integration into their circuits</p>",
+    "KeyFeatures": "<ul>\r\n\t<li>Low Insertion Loss in Wi-Fi Channels 10-11</li>\r\n\t<li>High rejection in the lower band Wi-Fi (CH1-2), Zigbee®, Thread or Bluetooth® channels.</li>\r\n\t<li>Extended temperature performance from 0 to +90 °C</li>\r\n\t<li>High power handling to +28dBm averaged Input Power</li>\r\n</ul>",
+    "TypicalApplications": "<ul>\r\n\t<li>Access Points</li>\r\n\t<li>Wireless Routers</li>\r\n\t<li>Residential Gateways</li>\r\n\t<li>Customer Premise Equipment</li>\r\n\t<li>Internet of Things</li>\r\n</ul>",
+    "ProductAttributes": [
+      {
+        "Attribute": {
+          "Name": "Technology",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 1
+        },
+        "Value": "BAW"
+      },
+      {
+        "Attribute": {
+          "Name": "Type",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 1
+        },
+        "Value": "Infrastructure"
+      },
+      {
+        "Attribute": {
+          "Name": "Bands",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 1
+        },
+        "Value": "2.4 GHz"
+      },
+      {
+        "Attribute": {
+          "Name": "Frequency",
+          "UnitOfMeasure": "MHz",
+          "TypeSpecific": 1
+        },
+        "Value": "2,447 to 2,472"
+      },
+      {
+        "Attribute": {
+          "Name": "Bandwidth",
+          "UnitOfMeasure": "MHz",
+          "TypeSpecific": 1
+        },
+        "Value": "19"
+      },
+      {
+        "Attribute": {
+          "Name": "Insertion Loss",
+          "UnitOfMeasure": "dB",
+          "TypeSpecific": 1
+        },
+        "Value": "1.1"
+      },
+      {
+        "Attribute": {
+          "Name": "I/O Configuration",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 1
+        },
+        "Value": ""
+      },
+      {
+        "Attribute": {
+          "Name": "Package Type",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 1
+        },
+        "Value": "Laminate"
+      },
+      {
+        "Attribute": {
+          "Name": "Package",
+          "UnitOfMeasure": "mm",
+          "TypeSpecific": 1
+        },
+        "Value": "2.0 x 1.6"
+      },
+      {
+        "Attribute": {
+          "Name": "RoHS",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "Yes"
+      },
+      {
+        "Attribute": {
+          "Name": "Lead Free",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "Yes"
+      },
+      {
+        "Attribute": {
+          "Name": "Halogen Free",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "Yes"
+      },
+      {
+        "Attribute": {
+          "Name": "ITAR Restricted",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "No"
+      },
+      {
+        "Attribute": {
+          "Name": "ECCN",
+          "UnitOfMeasure": null,
+          "TypeSpecific": 2
+        },
+        "Value": "5A991G"
+      }
+    ],
+    "ProductDocuments": [
+      {
+        "UUID": "da007259",
+        "TitleCombined": "Product Data Sheet",
+        "FileType": 1,
+        "DocumentType": "Data Sheet",
+        "IconType": 1,
+        "IconFileName": "icon-pdf",
+        "ShowOnDetailsPage": 1,
+        "Revision": "012120",
+        "RevisionAndDate": "Rev 012120",
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "Data Sheets",
+        "LegalAgreementVer": -1,
+        "Version": 1
+      },
+      {
+        "UUID": "da006700",
+        "TitleCombined": "Product Photo",
+        "FileType": 1,
+        "DocumentType": "Product Photo",
+        "IconType": 10,
+        "IconFileName": "icon-png",
+        "ShowOnDetailsPage": 2,
+        "ImportantNotice": 1,
+        "DocumentTypePlural": "Product Photos",
+        "LegalAgreementVer": -1,
+        "Version": 1
+      }
+    ],
+    "ProductCategories": [
+      {
+        "UUID": "ca0036",
+        "Name": "RF Filters",
+        "PathComponents": [
+          {
+            "Name": "Products",
+            "Url": "/products"
+          },
+          {
+            "Name": "Filters & Duplexers",
+            "Url": "/products/filters-duplexers"
+          },
+          {
+            "Name": "RF Filters",
+            "Url": "/products/filters-duplexers/rf-filters"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0054",
+        "Name": "Internet of Things",
+        "PathComponents": [
+          {
+            "Name": "Products",
+            "Url": "/products"
+          },
+          {
+            "Name": "Integrated Products",
+            "Url": "/products/integrated-products"
+          },
+          {
+            "Name": "Internet of Things",
+            "Url": "/products/integrated-products/internet-of-things"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0056",
+        "Name": "Wi-Fi Network Equipment",
+        "PathComponents": [
+          {
+            "Name": "Products",
+            "Url": "/products"
+          },
+          {
+            "Name": "Integrated Products",
+            "Url": "/products/integrated-products"
+          },
+          {
+            "Name": "Wi-Fi",
+            "Url": "/products/integrated-products/wifi"
+          },
+          {
+            "Name": "Wi-Fi Network Equipment",
+            "Url": "/products/integrated-products/wifi/wifi-network-equipment"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0174",
+        "Name": "Wi-Fi for Network Equipment",
+        "PathComponents": [
+          {
+            "Name": "Products",
+            "Url": "/products"
+          },
+          {
+            "Name": "Wireless Connectivity",
+            "Url": "/products/wireless-connectivity"
+          },
+          {
+            "Name": "Wi-Fi",
+            "Url": "/products/wireless-connectivity/wifi"
+          },
+          {
+            "Name": "Wi-Fi for Network Equipment",
+            "Url": "/products/wireless-connectivity/wifi/wifi-for-network-equipment"
+          }
+        ]
+      }
+    ],
+    "ApplicationCategories": [
+      {
+        "UUID": "ca0082",
+        "Name": "Customer Premises Equipment",
+        "PathComponents": [
+          {
+            "Name": "Applications",
+            "Url": "/applications"
+          },
+          {
+            "Name": "Customer Premises Equipment",
+            "Url": "/applications/customer-premises-equipment"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0088",
+        "Name": "Industrial, Scientific & Medical",
+        "PathComponents": [
+          {
+            "Name": "Applications",
+            "Url": "/applications"
+          },
+          {
+            "Name": "Internet of Things",
+            "Url": "/applications/internet-of-things"
+          },
+          {
+            "Name": "Industrial, Scientific & Medical",
+            "Url": "/applications/internet-of-things/industrial-scientific-medical"
+          }
+        ]
+      },
+      {
+        "UUID": "ca0118",
+        "Name": "Internet of Things",
+        "PathComponents": [
+          {
+            "Name": "Applications",
+            "Url": "/applications"
+          },
+          {
+            "Name": "Internet of Things",
+            "Url": "/applications/internet-of-things"
+          }
+        ]
+      }
+    ],
+    "RelatedProducts": [
+      {
+        "UUID": "pa002846",
+        "PartNumber": "QPF4200",
+        "Description": "2.4 GHz Wi-Fi Front End Module",
+        "DetailsPageUrl": "/products/p/QPF4200",
+        "DatasheetUrl": "/products/d/da006470"
+      },
+      {
+        "UUID": "pa002848",
+        "PartNumber": "QPF4216B",
+        "Description": "2.4 GHz Wi-Fi Front End Module",
+        "DetailsPageUrl": "/products/p/QPF4216B"
+      },
+      {
+        "UUID": "pa002496",
+        "PartNumber": "QPF4219",
+        "Description": "2.4 GHz 802.11ac Wi-Fi Front End Module",
+        "DetailsPageUrl": "/products/p/QPF4219",
+        "DatasheetUrl": "/products/d/da006101"
+      },
+      {
+        "UUID": "pa002760",
+        "PartNumber": "QPF4288",
+        "Description": "2.4 GHz 802.11ax Wi-Fi Front End Module",
+        "DetailsPageUrl": "/products/p/QPF4288",
+        "DatasheetUrl": "/products/d/da006746"
+      },
+      {
+        "UUID": "pa002933",
+        "PartNumber": "QPQ1905",
+        "Description": "Wi-Fi / IoT Narrowband Filter",
+        "DetailsPageUrl": "/products/p/QPQ1905",
+        "DatasheetUrl": "/products/d/da006948"
+      }
+    ],
+    "DistributorInventory": [],
+    "EvaluationTools": [],
+    "ReferenceDesigns": [],
+    "Promos": []
+  }
+}

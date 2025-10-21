@@ -1,11 +1,12 @@
 export type ProductSummary = {
   id: string;
-  sku: string;
-  name: string;
-  description?: string; // plain text (HTML stripped)
-  category?: string;    // primary category (first in list)
-  categories?: string[]; // all categories
+  description?: string;
+  category?: string;
+  categories?: string[];
   thumbnailUrl?: string;
+  uuid?: string;
+  partNumber?: string;
+  productType?: { UUID?: string; Name?: string } | null;
   [key: string]: any;
 };
 

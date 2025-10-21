@@ -25,8 +25,10 @@ export default function ExtensionPage(){
   // Only persist whitelisted keys to keep stored JSON lean & stable.
   const pickProduct = (p: any): ProductSummary => ({
     id: p.id,
-    sku: p.sku,
-    name: p.name,
+    uuid: p.uuid || p.id,
+    partNumber: p.partNumber,
+    description: p.description,
+    productType: p.productType ? { UUID: p.productType.UUID, Name: p.productType.Name } : null,
     thumbnailUrl: p.thumbnailUrl
   });
 

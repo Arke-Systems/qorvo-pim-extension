@@ -32,8 +32,8 @@ function buildMockItems() {
     const category = cats[i % cats.length];
     return {
       id: `mock-${i+1}`,
-      sku: `MCK-${(i+1).toString().padStart(3,'0')}`,
-      name: `Mock Product ${(i+1)}`,
+      partNumber: `MCK-${(i+1).toString().padStart(3,'0')}`,
+      description: `Mock Product ${(i+1)}`,
       category,
       thumbnailUrl: thumbFor[category] || ''
     };
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     const terms = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const matches = (p: any) => {
       if (terms.length === 0) return true;
-      const hay = [p.name, p.sku, p.category].map((s:string)=> (s||'').toLowerCase());
+      const hay = [p.partNumber, p.description, p.id, p.category].map((s:string)=> (s||'').toLowerCase());
       return terms.every(t => hay.some(h => h.includes(t)));
     };
     const all = buildMockItems().filter(matches);
@@ -132,14 +132,14 @@ export async function GET(req: NextRequest) {
         const categories = categoryNames ? categoryNames.split(',').map((c: string)=>c.trim()).filter(Boolean) : [];
         return {
           id: x.UUID || x.uuid || x.id || x.ID || x.ProductId || x.ProductID,
-          sku: x.PartNumber || x.partNumber || x.SKU || x.sku || '',
-          name: stripHtml(x.Description) || x.Name || x.Title || 'Untitled',
           description: stripHtml(x.Description || x.Overview || ''),
-            // Primary category is first; store all for filtering
           category: categories[0] || '',
           categories,
           // Placeholder - upstream doesn't appear to include direct image; keep heuristics
-          thumbnailUrl: x.thumbnailUrl || x.image || x.ImageUrl || x.media?.[0]?.url || ''
+          thumbnailUrl: x.thumbnailUrl || x.image || x.ImageUrl || x.media?.[0]?.url || '',
+          uuid: x.UUID || x.uuid || undefined,
+          partNumber: x.PartNumber || x.partNumber || undefined,
+          productType: x.ProductType ? { UUID: x.ProductType.UUID || x.ProductType.uuid, Name: x.ProductType.Name || x.ProductType.name } : null
         };
       });
       catalogCache = { fetchedAt: Date.now(), items: normalized };
@@ -156,10 +156,10 @@ export async function GET(req: NextRequest) {
 
   try {
     const catalog = await loadCatalog();
-    // Filtering across name, sku, id, category (all lower-cased)
+    // Filtering across partNumber, description, id, category (all lower-cased)
     const terms = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const filtered = terms.length ? catalog.filter(p => {
-      const hay = [p.name, p.sku, p.id, p.category].map(x => (x||'').toLowerCase());
+      const hay = [p.partNumber, p.description, p.id, p.category].map(x => (x||'').toLowerCase());
       return terms.every(t => hay.some(h => h.includes(t)));
     }) : catalog;
     const total = filtered.length;
