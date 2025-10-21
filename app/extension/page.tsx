@@ -1,7 +1,7 @@
 'use client';
 import PIMBrowser from '../../components/PIMBrowser';
 import { useContentstackField } from '../../lib/useContentstackField';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import type { ProductSummary } from '../../utils/types';
 
 export default function ExtensionPage(){
@@ -12,15 +12,52 @@ export default function ExtensionPage(){
   // (Removed debug beacons and probes)
 
   useEffect(() => {
-    if(!ready || !sdk) return;
-    setInitialValue(sdk.field.getData() ?? null);
-    const cfg = (sdk as any)?.field?.schema?.extensions?.field?.config || (sdk as any)?.config || {};
-    setConfig(cfg);
-  // Height automatically managed in hook (min 800px).
-  sdk.field.setInvalid?.(false);
+    // Collect config from SDK if available
+    const sdkPaths: any[] = sdk ? [
+      (sdk as any)?.field?.schema?.extensions?.field?.config,
+      (sdk as any)?.field?.config,
+      (sdk as any)?.config,
+      (sdk as any)?.extension?.config,
+    ].filter(Boolean) : [];
+    // Local dev fallbacks: global injection, query params, NEXT_PUBLIC env vars
+    let globalCfg: any = {};
+    if (typeof window !== 'undefined') {
+      globalCfg = (window as any).__PIM_EXTENSION_CONFIG__ || {};
+    }
+    let queryCfg: any = {};
+    if (typeof window !== 'undefined') {
+      const sp = new URLSearchParams(window.location.search);
+      const get = (k: string) => sp.get(k) ?? undefined;
+      queryCfg = {
+        multi: get('multi'),
+        multiple: get('multiple'),
+        allowMultiple: get('allowMultiple'),
+        multiSelect: get('multiSelect'),
+        minHeight: get('minHeight') ? Number(get('minHeight')) : undefined
+      };
+      Object.keys(queryCfg).forEach(k => queryCfg[k] === undefined && delete queryCfg[k]);
+    }
+    const envCfg: any = {};
+    if (process.env.NEXT_PUBLIC_PIM_EXTENSION_MULTI) envCfg.multi = process.env.NEXT_PUBLIC_PIM_EXTENSION_MULTI;
+    if (process.env.NEXT_PUBLIC_PIM_EXTENSION_MIN_HEIGHT) envCfg.minHeight = Number(process.env.NEXT_PUBLIC_PIM_EXTENSION_MIN_HEIGHT);
+    const merged = [ ...sdkPaths, globalCfg, queryCfg, envCfg ].reduce((acc,obj) => ({ ...acc, ...obj }), {});
+    if (process.env.NEXT_PUBLIC_EXTENSION_DEBUG) {
+      // eslint-disable-next-line no-console
+      console.log('[PIM Extension] Resolved config (sdkReady=' + (!!sdk) + '):', merged);
+      if (!sdk) console.log('[PIM Extension] SDK not ready; using fallback config only');
+    }
+    setConfig(merged);
+    if (ready && sdk) {
+      setInitialValue(sdk.field.getData() ?? null);
+      sdk.field.setInvalid?.(false);
+    }
   }, [ready, sdk]);
-
-  const multi = !!config.multi;
+  // Accept several aliases for multi selection; treat any truthy value as enabling multi
+  const multi = useMemo(() => {
+    const raw = config.multi ?? config.multiple ?? config.allowMultiple ?? config.multiSelect;
+    if (typeof raw === 'string') return ['true','1','yes','y','multi','multiple'].includes(raw.toLowerCase());
+    return !!raw;
+  }, [config]);
 
   // Only persist whitelisted keys to keep stored JSON lean & stable.
   const pickProduct = (p: any): ProductSummary => ({
